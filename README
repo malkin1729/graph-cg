@@ -1,0 +1,60 @@
+Example code for NeurIPS 2020 submission:
+"Learning intersecting representations of short random walks on graphs"
+=======================================================================
+
+This code should be run on a GPU machine with CUDA visible to Torch.
+To use a GPU device of your choice, run the commands with the --gpu [id] option.
+
+Dependencies 
+------------
+torch>=1.5.0
+numpy>=1.18.1
+networkx>=1.11
+scipy>=1.4.1
+scikit-learn>=0.23.1
+matplotlib>=3.2.1 (for visualize.py only)
+
+(1) Train a CG
+--------------
+Basic syntax: python train.py --out my_model.cg
+
+Execution time: 120s
+Final sample log likelihood: -55.12
+
+Other command line parameters: cg_size, cg_window, batch_size, num_batches, norm_constant, clamp_constant, num_hops, print_interval, learning_rate, gpu
+
+(2) Evaluate the CG model on standard splits
+--------------------------------------------
+Basic syntax: python evaluate.py --model trained_model.cg
+
+Execution time: 2s
+Test accuracy: 82.2%
+
+Other command line parameters: norm_constant, num_hops, alpha, beta, cg_window, gpu
+
+(3) Visualize the label embeddings
+----------------------------------
+Basic syntax: python visualize.py --model trained_model.cg --out vis.png
+
+Expected execution time: 3s
+
+Other command line parameters: norm_constant, num_hops, cg_window, gpu
+
+(4) Finetune and evaluate the CG model on large splits
+------------------------------------------------------
+Basic syntax: python finetune_evaluate.py --model trained_model.cg
+
+Execution time: 4s
+Initial test accuracy: 79.6%
+Final test accuracy: 87.5%
+
+Other command line parameters: norm_constant, clamp_constant, num_hops, finetune_steps, learning_rate, momentum, alpha, beta, cg_window, gpu
+
+(5) Train and evaluate a model for link prediction
+--------------------------------------------------
+Basic syntax: python link_prediction.py
+
+Execution time: 120s
+Test AUC / AP: 94.1 / 94.5
+
+Other command line parameters: cg_size, cg_window, batch_size, num_batches, norm_constant, clamp_constant, num_hops, print_interval, learning_rate, gpu
